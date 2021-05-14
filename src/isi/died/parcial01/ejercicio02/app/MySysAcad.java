@@ -1,5 +1,8 @@
 package isi.died.parcial01.ejercicio02.app;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import isi.died.parcial01.ejercicio02.db.BaseDeDatosExcepcion;
 import isi.died.parcial01.ejercicio02.dominio.*;
 import isi.died.parcial01.ejercicio02.exc.DocenteNoPerteneceException;
@@ -31,6 +34,23 @@ public interface MySysAcad {
 	 * @throws BaseDeDatosExcepcion 
 	 */
 	public void inscribirAlumnoExamen(Docente d,Alumno a, Materia m) throws DocenteNoPerteneceException, BaseDeDatosExcepcion;
+
+	public default Double promedioAprobados(Materia m) {
+		return m.getExamenes().stream()
+						.filter(e -> e.getNota()>=6)
+						.mapToInt(e-> e.getNota())
+						.average().orElse(0.0);
+	}
 	
+	/** public List<Alumno> inscriptos(Materia m,Integer ciclo){
+		return m.getInscripciones().stream()
+							.map(e -> e.getInscripto())
+							.sorted(a1,a1)-> (int) (a1.nombre-a2.nombre)
+							.collect(Collectors.toList())
+	}*/
+
 
 }
+	
+
+

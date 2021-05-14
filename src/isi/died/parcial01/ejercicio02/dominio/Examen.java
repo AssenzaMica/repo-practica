@@ -12,8 +12,6 @@ public class Examen {
 	private Integer nota;
 	private LocalDate fecha;
 	
-	
-	
 	public Examen() {
 		this.id = ID_GENERATOR++;
 	}

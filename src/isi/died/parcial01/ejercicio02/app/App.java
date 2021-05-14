@@ -3,9 +3,11 @@ package isi.died.parcial01.ejercicio02.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import isi.died.parcial01.ejercicio02.db.BaseDeDatosExcepcion;
 import isi.died.parcial01.ejercicio02.dominio.Alumno;
 import isi.died.parcial01.ejercicio02.dominio.Docente;
 import isi.died.parcial01.ejercicio02.dominio.Materia;
+import isi.died.parcial01.ejercicio02.exc.DocenteNoPerteneceException;
 
 public class App {
 
@@ -87,11 +89,22 @@ public class App {
 		sistema.registrarAlumnos(a14);
 		sistema.registrarAlumnos(a15);
 
-
-		
-		sistema.inscribirAlumnoCursada(prof1, a1, m1,2020);
-
-		sistema.inscribirAlumnoExamen(prof1, a1, m1);
+		try {
+			sistema.inscribirAlumnoCursada(prof1, a1, m1,2020);
+		}	
+		catch(BaseDeDatosExcepcion e) {
+			System.out.println("Ha fallado");
+		}
+				
+		try {
+			sistema.inscribirAlumnoExamen(prof1, a1, m1);
+		}
+		catch(DocenteNoPerteneceException e) {
+			System.out.println("El Docente seleccionado no pertenece a la Materia");
+		}
+		catch(BaseDeDatosExcepcion e) {
+			System.out.println("Ha fallado");
+		}
 	}
 	
 
